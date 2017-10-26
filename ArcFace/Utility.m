@@ -51,11 +51,9 @@
             pOffscreen->pi32Pitch[0] = pOffscreen->i32Width;        //Y
             pOffscreen->pi32Pitch[1] = pOffscreen->i32Width;        //UV
             
-            pOffscreen->ppu8Plane[0] = (MUInt8*)malloc(height * pOffscreen->pi32Pitch[0] ) ;    // Y
-            memset(pOffscreen->ppu8Plane[0], 0, height * pOffscreen->pi32Pitch[0]);
-            
-            pOffscreen->ppu8Plane[1] = (MUInt8*)malloc(height / 2 * pOffscreen->pi32Pitch[1]);  // UV
-            memset(pOffscreen->ppu8Plane[1], 0, height * pOffscreen->pi32Pitch[0] / 2);
+            pOffscreen->ppu8Plane[0] = (MUInt8*)malloc(height * 3/2 * pOffscreen->pi32Pitch[0] ) ;    // Y
+            pOffscreen->ppu8Plane[1] = pOffscreen->ppu8Plane[0] + pOffscreen->i32Height * pOffscreen->pi32Pitch[0]; // UV
+            memset(pOffscreen->ppu8Plane[0], 0, height * 3/2 * pOffscreen->pi32Pitch[0]);
         }
         else if (ASVL_PAF_RGB32_R8G8B8A8 == format
                  || ASVL_PAF_RGB32_B8G8R8A8 == format)
@@ -92,18 +90,6 @@
         {
             free(pOffscreen->ppu8Plane[0]);
             pOffscreen->ppu8Plane[0] = MNull;
-        }
-        
-        if (MNull != pOffscreen->ppu8Plane[1])
-        {
-            free(pOffscreen->ppu8Plane[1]);
-            pOffscreen->ppu8Plane[1] = MNull;
-        }
-        
-        if (MNull != pOffscreen->ppu8Plane[2])
-        {
-            free(pOffscreen->ppu8Plane[2]);
-            pOffscreen->ppu8Plane[2] = MNull;
         }
         
         free(pOffscreen);
