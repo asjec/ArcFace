@@ -76,9 +76,9 @@
 
 - (void)dealloc
 {
-    [self.videoProcessor uninitProcessor];
     [self.cameraController stopCaptureSession];
-    
+    [self.videoProcessor uninitProcessor];
+
     [Utility freeOffscreen:_offscreenIn];
 }
 
@@ -137,7 +137,7 @@
     int bufferWidth = (int) CVPixelBufferGetWidth(cameraFrame);
     int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);
     LPASVLOFFSCREEN pOffscreenIn = [self offscreenFromSampleBuffer:sampleBuffer];
-    NSArray *arrayFaceRect = [self.videoProcessor process:pOffscreenIn];
+    NSArray *arrayFaceInfo = [self.videoProcessor process:pOffscreenIn];
     
     dispatch_sync(dispatch_get_main_queue(), ^{
         
@@ -150,16 +150,16 @@
             [self.glView render:bufferWidth height:bufferHeight yData:pOffscreenIn->ppu8Plane[0] uvData:pOffscreenIn->ppu8Plane[1]];
         }
         
-        if(self.arrayAllFaceRectView.count >= arrayFaceRect.count)
+        if(self.arrayAllFaceRectView.count >= arrayFaceInfo.count)
         {
-            for (NSUInteger face=arrayFaceRect.count; face<self.arrayAllFaceRectView.count; face++) {
+            for (NSUInteger face=arrayFaceInfo.count; face<self.arrayAllFaceRectView.count; face++) {
                 UIView *faceRectView = [self.arrayAllFaceRectView objectAtIndex:face];
                 faceRectView.hidden = YES;
             }
         }
         else
         {
-            for (NSUInteger face=self.arrayAllFaceRectView.count; face<arrayFaceRect.count; face++) {
+            for (NSUInteger face=self.arrayAllFaceRectView.count; face<arrayFaceInfo.count; face++) {
                 UIStoryboard *faceRectStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIView *faceRectView = [faceRectStoryboard instantiateViewControllerWithIdentifier:@"FaceRectVideoController"].view;
                 [self.view addSubview:faceRectView];
@@ -167,10 +167,11 @@
             }
         }
         
-        for (NSUInteger face=0; face<arrayFaceRect.count; face++) {
+        for (NSUInteger face=0; face<arrayFaceInfo.count; face++) {
             UIView *faceRectView = [self.arrayAllFaceRectView objectAtIndex:face];
+            AFVideoFaceInfo *faceInfo = [arrayFaceInfo objectAtIndex:face];
             faceRectView.hidden = NO;
-            faceRectView.frame = [self dataFaceRect2ViewFaceRect:((AFVideoFaceRect*)[arrayFaceRect objectAtIndex:face]).faceRect];
+            faceRectView.frame = [self dataFaceRect2ViewFaceRect:faceInfo.faceRect];
         }
     });
 }
