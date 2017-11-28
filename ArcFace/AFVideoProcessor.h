@@ -1,5 +1,5 @@
 //
-//  AFRVideoProcessor.h
+//  AFVideoProcessor.h
 //  ArcFace
 //
 //  Created by yalichen on 2017/8/1.
@@ -18,6 +18,8 @@
 
 @interface AFVideoFaceInfo : NSObject
 @property(nonatomic,assign) MRECT faceRect;
+@property(nonatomic,assign) MInt32 age;
+@property(nonatomic,assign) MInt32 gender;
 @end
 
 @interface AFVideoProcessor : NSObject

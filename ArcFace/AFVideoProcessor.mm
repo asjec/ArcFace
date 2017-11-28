@@ -1,5 +1,5 @@
 //
-//  AFRVideoProcessor.mm
+//  AFVideoProcessor.mm
 //  ArcFace
 //
 //  Created by yalichen on 2017/8/1.
@@ -11,18 +11,24 @@
 #import "merror.h"
 #import "Utility.h"
 #import "AFRManager.h"
-#import "arcsoft_fsdk_face_recognition.h"
-#import "arcsoft_fsdk_face_tracking.h"
-#import "arcsoft_fsdk_face_detection.h"
+#import <arcsoft_fsdk_face_recognition/arcsoft_fsdk_face_recognition.h>
+#import <arcsoft_fsdk_face_tracking/arcsoft_fsdk_face_tracking.h>
+#import <arcsoft_fsdk_face_detection/arcsoft_fsdk_face_detection.h>
+#import <arcsoft_fsdk_age_estimation/arcsoft_fsdk_age_estimation.h>
+#import <arcsoft_fsdk_gender_estimation/arcsoft_fsdk_gender_estimation.h>
 
-#define AFR_DEMO_APP_ID         ""
-#define AFR_DEMO_SDK_FR_KEY     ""
-#define AFR_DEMO_SDK_FT_KEY     ""
-#define AFR_DEMO_SDK_FD_KEY     ""
+#define AFR_DEMO_APP_ID         "bCx99etK9Ns4Saou1EbFdJRZotYrVRARV95fC2KQaRZ"
+#define AFR_DEMO_SDK_FR_KEY     "F8aXi6RpGdd3ryrrsZX4QSTUqrHCFczKdLvSq1TNbzK9"
+#define AFR_DEMO_SDK_FT_KEY     "F8aXi6RpGdd3ryrrsZX4QSTEX3kvvjUtZSTNy8Pgyi4d"
+#define AFR_DEMO_SDK_FD_KEY     "F8aXi6RpGdd3ryrrsZX4QSTMgT26cXx8iEhZ5RwqBLZe"
+#define AFR_DEMO_SDK_AGE_KEY    "F8aXi6RpGdd3ryrrsZX4QSU6erb51z6RnurmawDHmpri"
+#define AFR_DEMO_SDK_GENDER_KEY "F8aXi6RpGdd3ryrrsZX4QSUDpFrHeiSMrtotJksgaZSK"
 
 #define AFR_FR_MEM_SIZE         1024*1024*40
 #define AFR_FT_MEM_SIZE         1024*1024*5
 #define AFR_FD_MEM_SIZE         1024*1024*5
+#define AFR_AGE_MEM_SIZE        1024*1024*30
+#define AFR_GENDER_MEM_SIZE     1024*1024*30
 
 #define AFR_FD_MAX_FACE_NUM     4
 
@@ -39,6 +45,12 @@
     
     MHandle          _arcsoftFR;
     MVoid*           _memBufferFR;
+    
+    MHandle          _arcsoftAge;
+    MVoid*           _memBufferAge;
+    
+    MHandle          _arcsoftGender;
+    MVoid*           _memBufferGender;
     
     ASVLOFFSCREEN*   _offscreenForProcessFR;
     dispatch_semaphore_t _processSemaphore;
@@ -68,6 +80,16 @@
     _memBufferFR = MMemAlloc(MNull,AFR_FR_MEM_SIZE);
     MMemSet(_memBufferFR, 0, AFR_FR_MEM_SIZE);
     AFR_FSDK_InitialEngine((MPChar)AFR_DEMO_APP_ID, (MPChar)AFR_DEMO_SDK_FR_KEY, (MByte*)_memBufferFR, AFR_FR_MEM_SIZE, &_arcsoftFR);
+
+    // Age
+    _memBufferAge = MMemAlloc(MNull,AFR_AGE_MEM_SIZE);
+    MMemSet(_memBufferAge, 0, AFR_AGE_MEM_SIZE);
+    ASAE_FSDK_InitAgeEngine((MPChar)AFR_DEMO_APP_ID, (MPChar)AFR_DEMO_SDK_AGE_KEY, (MByte*)_memBufferAge, AFR_AGE_MEM_SIZE, &_arcsoftAge);
+
+    // Gender
+    _memBufferGender = MMemAlloc(MNull,AFR_GENDER_MEM_SIZE);
+    MMemSet(_memBufferGender, 0, AFR_GENDER_MEM_SIZE);
+    ASGE_FSDK_InitGenderEngine((MPChar)AFR_DEMO_APP_ID, (MPChar)AFR_DEMO_SDK_GENDER_KEY, (MByte*)_memBufferGender, AFR_GENDER_MEM_SIZE, &_arcsoftGender);
    
     _processSemaphore = dispatch_semaphore_create(1);
     _processFRSemaphore = dispatch_semaphore_create(1);
@@ -94,7 +116,23 @@
             MMemFree(MNull, _memBufferFD);
             _memBufferFD = MNull;
         }
-                
+        
+        ASAE_FSDK_UninitAgeEngine(_arcsoftAge);
+        _arcsoftAge = MNull;
+        if(_memBufferAge != MNull)
+        {
+            MMemFree(MNull, _memBufferAge);
+            _memBufferAge = MNull;
+        }
+        
+        ASGE_FSDK_UninitGenderEngine(_arcsoftGender);
+        _arcsoftGender = MNull;
+        if(_memBufferGender != MNull)
+        {
+            MMemFree(MNull, _memBufferGender);
+            _memBufferGender = MNull;
+        }
+        
         dispatch_semaphore_signal(_processSemaphore);
         _processSemaphore = NULL;
     }
@@ -124,6 +162,7 @@
     {
         MInt32 nFaceNum = 0;
         MRECT* pRectFace = MNull;
+        MInt32* pFaceOrientaion = MNull;
         __block AFR_FSDK_FACEINPUT faceInput = {0};
         if (self.detectFaceUseFD)
         {
@@ -138,6 +177,9 @@
             {
                 faceInput.rcFace = pFaceResFD->rcFace[0];
                 faceInput.lOrient = pFaceResFD->lfaceOrient[0];
+                
+                pFaceOrientaion = new MInt32[nFaceNum];
+                MMemCpy(pFaceOrientaion, pFaceResFD->lfaceOrient, nFaceNum*sizeof(MInt32));
             }
         }
         else
@@ -153,17 +195,44 @@
             {
                 faceInput.rcFace = pFaceResFT->rcFace[0];
                 faceInput.lOrient = pFaceResFT->lfaceOrient;
+                
+                pFaceOrientaion = new MInt32[nFaceNum];
+                for (int face=0; face<nFaceNum; face++) {
+                    pFaceOrientaion[face] = pFaceResFT->lfaceOrient;
+                }
             }
         }
         
         arrayFaceInfo = [NSMutableArray arrayWithCapacity:0];
         if(nFaceNum > 0)
         {
+            ASAE_FSDK_AGEFACEINPUT ageFaceInput = {0};
+            ageFaceInput.lFaceNumber = nFaceNum;
+            ageFaceInput.pFaceRectArray = pRectFace;
+            ageFaceInput.pFaceOrientArray = pFaceOrientaion;
+            ASAE_FSDK_AGERESULT ageRes = {0};
+            ASAE_FSDK_AgeEstimation_Preview(_arcsoftAge, offscreen, &ageFaceInput, &ageRes);
+            
+            ASGE_FSDK_GENDERFACEINPUT genderFaceInput = {0};
+            genderFaceInput.lFaceNumber = nFaceNum;
+            genderFaceInput.pFaceRectArray = pRectFace;
+            genderFaceInput.pFaceOrientArray = pFaceOrientaion;
+            ASGE_FSDK_GENDERRESULT genderRes = {0};
+            ASGE_FSDK_GenderEstimation_Preview(_arcsoftGender, offscreen, &genderFaceInput, &genderRes);
+            
             for (int face=0; face<nFaceNum; face++) {
                 AFVideoFaceInfo *faceInfo = [[AFVideoFaceInfo alloc] init];
                 faceInfo.faceRect = pRectFace[face];
+                faceInfo.age = ageRes.pAgeResultArray[face];
+                faceInfo.gender = genderRes.pGenderResultArray[face];
                 [arrayFaceInfo addObject:faceInfo];
             }
+        }
+        
+        if(pFaceOrientaion)
+        {
+            delete pFaceOrientaion;
+            pFaceOrientaion = MNull;
         }
         
         dispatch_semaphore_signal(_processSemaphore);

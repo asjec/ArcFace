@@ -78,7 +78,7 @@
 {
     [self.cameraController stopCaptureSession];
     [self.videoProcessor uninitProcessor];
-
+    
     [Utility freeOffscreen:_offscreenIn];
 }
 
@@ -172,6 +172,9 @@
             AFVideoFaceInfo *faceInfo = [arrayFaceInfo objectAtIndex:face];
             faceRectView.hidden = NO;
             faceRectView.frame = [self dataFaceRect2ViewFaceRect:faceInfo.faceRect];
+            
+            UILabel* labelInfo = (UILabel*)[faceRectView viewWithTag:1];
+            labelInfo.text = [NSString stringWithFormat:@"age:%d gender:%d", faceInfo.age, faceInfo.gender];
         }
     });
 }
@@ -179,9 +182,7 @@
 #pragma mark - AFVideoProcessorDelegate
 - (void)processRecognized:(NSString *)personName
 {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        self.labelName.text = personName;
-    });
+    self.labelName.text = personName;
 }
 
 #pragma mark - Private Methods
