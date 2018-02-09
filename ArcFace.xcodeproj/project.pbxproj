@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7723D0AA1F32B58800EF7FD6 /* FSDKFR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7723D0A91F32B58800EF7FD6 /* FSDKFR.xcdatamodeld */; };
+		7732EB47202C46A500652248 /* AFRCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7732EB46202C46A400652248 /* AFRCDManager.m */; };
+		7732EB65202C50F800652248 /* FSDKFR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7732EB63202C50F800652248 /* FSDKFR.xcdatamodeld */; };
 		776541B41F442A0600147886 /* arcsoft_fsdk_base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */; };
 		776541B51F442A0600147886 /* arcsoft_fsdk_base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77CFACA81F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CFAC991F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework */; };
@@ -33,7 +34,8 @@
 		77D55F0A1F30125000605942 /* AFVideoProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F091F30125000605942 /* AFVideoProcessor.mm */; };
 		77D55F1C1F30190700605942 /* AFRManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F0E1F30190600605942 /* AFRManager.m */; };
 		77D55F1D1F30190700605942 /* AFRPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F101F30190600605942 /* AFRPerson.m */; };
-		77D55F411F305CC400605942 /* AFRCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F381F305CC400605942 /* AFRCDManager.m */; };
+		77DBD90F20285310007088E7 /* StaticImageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77DBD90E20285310007088E7 /* StaticImageViewController.mm */; };
+		77DBD91120298A1D007088E7 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77DBD91020298A1D007088E7 /* Photos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +58,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7732EB45202C46A400652248 /* AFRCDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRCDManager.h; sourceTree = "<group>"; };
+		7732EB46202C46A400652248 /* AFRCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRCDManager.m; sourceTree = "<group>"; };
+		7732EB64202C50F800652248 /* FSDKFR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSDKFR.xcdatamodel; sourceTree = "<group>"; };
 		776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_base.framework; sourceTree = "<group>"; };
 		77CFAC991F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_age_estimation.framework; sourceTree = "<group>"; };
 		77CFAC9B1F42E14A00DB8EB7 /* arcsoft_fsdk_face_detection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_face_detection.framework; sourceTree = "<group>"; };
@@ -91,8 +96,9 @@
 		77D55F0E1F30190600605942 /* AFRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRManager.m; sourceTree = "<group>"; };
 		77D55F0F1F30190600605942 /* AFRPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRPerson.h; sourceTree = "<group>"; };
 		77D55F101F30190600605942 /* AFRPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRPerson.m; sourceTree = "<group>"; };
-		77D55F371F305CC400605942 /* AFRCDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFRCDManager.h; path = ArcFace/AFRCDManager.h; sourceTree = SOURCE_ROOT; };
-		77D55F381F305CC400605942 /* AFRCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFRCDManager.m; path = ArcFace/AFRCDManager.m; sourceTree = SOURCE_ROOT; };
+		77DBD90D20285310007088E7 /* StaticImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaticImageViewController.h; sourceTree = "<group>"; };
+		77DBD90E20285310007088E7 /* StaticImageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StaticImageViewController.mm; sourceTree = "<group>"; };
+		77DBD91020298A1D007088E7 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77DBD91120298A1D007088E7 /* Photos.framework in Frameworks */,
 				77CFACA81F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework in Frameworks */,
 				77CFACAC1F42E14A00DB8EB7 /* arcsoft_fsdk_gender_estimation.framework in Frameworks */,
 				77CFACAA1F42E14A00DB8EB7 /* arcsoft_fsdk_face_recognition.framework in Frameworks */,
@@ -112,6 +119,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7732EB44202C468B00652248 /* coredata */ = {
+			isa = PBXGroup;
+			children = (
+				7732EB63202C50F800652248 /* FSDKFR.xcdatamodeld */,
+				7732EB45202C46A400652248 /* AFRCDManager.h */,
+				7732EB46202C46A400652248 /* AFRCDManager.m */,
+			);
+			name = coredata;
+			sourceTree = "<group>";
+		};
 		77CFAC971F42E14A00DB8EB7 /* engines */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +224,7 @@
 		77D55EB31F2ECF2E00605942 /* ArcFace */ = {
 			isa = PBXGroup;
 			children = (
+				7732EB44202C468B00652248 /* coredata */,
 				77D55F0D1F30190600605942 /* AFRManager.h */,
 				77D55F0E1F30190600605942 /* AFRManager.m */,
 				77D55F0F1F30190600605942 /* AFRPerson.h */,
@@ -219,13 +237,14 @@
 				77D55EF51F2EFBF200605942 /* AFCameraController.m */,
 				77D55F081F30125000605942 /* AFVideoProcessor.h */,
 				77D55F091F30125000605942 /* AFVideoProcessor.mm */,
+				77DBD90D20285310007088E7 /* StaticImageViewController.h */,
+				77DBD90E20285310007088E7 /* StaticImageViewController.mm */,
 				77D55F051F2F167300605942 /* Utility.h */,
 				77D55F061F2F167300605942 /* Utility.m */,
 				77D55EBD1F2ECF2F00605942 /* Main.storyboard */,
 				77D55EC51F2ECF2F00605942 /* LaunchScreen.storyboard */,
 				77D55EC31F2ECF2F00605942 /* Assets.xcassets */,
 				77D55EC81F2ECF2F00605942 /* Info.plist */,
-				77D55F111F30190700605942 /* coredata */,
 				77D55EFA1F2F052200605942 /* render */,
 				77D55EB41F2ECF2E00605942 /* Supporting Files */,
 			);
@@ -243,6 +262,7 @@
 		77D55EF71F2F024E00605942 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77DBD91020298A1D007088E7 /* Photos.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,16 +277,6 @@
 				77D55EFF1F2F057B00605942 /* GLView.mm */,
 			);
 			name = render;
-			sourceTree = "<group>";
-		};
-		77D55F111F30190700605942 /* coredata */ = {
-			isa = PBXGroup;
-			children = (
-				7723D0A91F32B58800EF7FD6 /* FSDKFR.xcdatamodeld */,
-				77D55F371F305CC400605942 /* AFRCDManager.h */,
-				77D55F381F305CC400605942 /* AFRCDManager.m */,
-			);
-			path = coredata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,15 +355,16 @@
 				77D55F011F2F057B00605942 /* GLView.mm in Sources */,
 				77D55EF61F2EFBF200605942 /* AFCameraController.m in Sources */,
 				77D55EBC1F2ECF2E00605942 /* ViewController.m in Sources */,
-				77D55F411F305CC400605942 /* AFRCDManager.m in Sources */,
 				77D55F1D1F30190700605942 /* AFRPerson.m in Sources */,
+				7732EB65202C50F800652248 /* FSDKFR.xcdatamodeld in Sources */,
+				7732EB47202C46A500652248 /* AFRCDManager.m in Sources */,
 				77D55F071F2F167300605942 /* Utility.m in Sources */,
+				77DBD90F20285310007088E7 /* StaticImageViewController.mm in Sources */,
 				77D55F0A1F30125000605942 /* AFVideoProcessor.mm in Sources */,
 				77D55EB91F2ECF2E00605942 /* AppDelegate.m in Sources */,
 				77D55EB61F2ECF2E00605942 /* main.m in Sources */,
 				77D55F001F2F057B00605942 /* GLProgram.m in Sources */,
 				77D55F1C1F30190700605942 /* AFRManager.m in Sources */,
-				7723D0AA1F32B58800EF7FD6 /* FSDKFR.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,12 +568,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		7723D0A91F32B58800EF7FD6 /* FSDKFR.xcdatamodeld */ = {
+		7732EB63202C50F800652248 /* FSDKFR.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				7732EB64202C50F800652248 /* FSDKFR.xcdatamodel */,
 			);
-			name = FSDKFR.xcdatamodeld;
-			path = ../FSDKFR.xcdatamodeld;
+			currentVersion = 7732EB64202C50F800652248 /* FSDKFR.xcdatamodel */;
+			path = FSDKFR.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

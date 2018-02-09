@@ -62,16 +62,15 @@
     self.switchDetectByFD.on = NO;
     self.arrayAllFaceRectView = [NSMutableArray arrayWithCapacity:0];
 
-    // Start camera
-    self.cameraController = [[AFCameraController alloc]init];
-    self.cameraController.delegate = self;
-    [self.cameraController setupCaptureSession:videoOrientation];
-    [self.cameraController startCaptureSession];
-    
     // Video processor
     self.videoProcessor = [[AFVideoProcessor alloc] init];
     self.videoProcessor.delegate = self;
     [self.videoProcessor initProcessor];
+
+    // Start camera
+    self.cameraController = [[AFCameraController alloc]init];
+    self.cameraController.delegate = self;
+    [self.cameraController setupCaptureSession:videoOrientation];
 }
 
 - (void)dealloc
@@ -85,6 +84,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.cameraController startCaptureSession];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.cameraController stopCaptureSession];
 }
 
 - (IBAction)btnRegisterClicked:(id)sender {
@@ -129,10 +140,6 @@
 #pragma mark - AFCameraControllerDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    if (UIApplicationStateActive != [UIApplication sharedApplication].applicationState) {
-        return; // OPENGL ES commands could not be excuted in background
-    }
-    
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
     int bufferWidth = (int) CVPixelBufferGetWidth(cameraFrame);
     int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);

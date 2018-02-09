@@ -98,7 +98,6 @@
 - (void) stopCaptureSession
 {
     [captureSession stopRunning];
-    captureSession = nil;
 }
 
 @end

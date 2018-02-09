@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h>
 #import "asvloffscreen.h"
+#import <UIKit/UIKit.h>
 
 @interface Utility : NSObject
 
@@ -16,5 +17,5 @@
 
 + (LPASVLOFFSCREEN) createOffscreen:(MInt32) width height:( MInt32) height format:( MUInt32) format;
 + (void) freeOffscreen:(LPASVLOFFSCREEN) pOffscreen;
-
++ (LPASVLOFFSCREEN) createOffscreenwithUImage:(UIImage*)image;
 @end

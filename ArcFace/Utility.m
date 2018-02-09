@@ -61,7 +61,8 @@
             pOffscreen->pi32Pitch[0] = pOffscreen->i32Width * 4;
             pOffscreen->ppu8Plane[0] = (MUInt8*)malloc(height * pOffscreen->pi32Pitch[0]);
         }
-        else if (ASVL_PAF_RGB24_R8G8B8 == format)
+        else if (ASVL_PAF_RGB24_R8G8B8 == format
+                 || ASVL_PAF_RGB24_B8G8R8 == format)
         {
             pOffscreen->pi32Pitch[0] = pOffscreen->i32Width * 3;
             pOffscreen->ppu8Plane[0] = (MUInt8*)malloc(height * pOffscreen->pi32Pitch[0]);
@@ -97,4 +98,37 @@
     }
 }
 
++ (LPASVLOFFSCREEN) createOffscreenwithUImage:(UIImage*)image
+{
+    CGImageRef imageRef = image.CGImage;
+    long width = CGImageGetWidth(imageRef);
+    long height = CGImageGetHeight(imageRef);
+    long pitch = CGImageGetBytesPerRow(imageRef);
+    long bitsPerPixel = CGImageGetBitsPerPixel(imageRef);
+    int bytesPerPixel = (int)bitsPerPixel/8;
+    if(bytesPerPixel < 4)
+        return MNull;
+    
+    CFDataRef dataProvider = CGDataProviderCopyData(CGImageGetDataProvider(imageRef));
+    GLubyte *imageBuffer = (GLubyte *)CFDataGetBytePtr(dataProvider);
+   
+    LPASVLOFFSCREEN pOffscreen = [Utility createOffscreen:(MInt32)width height:(MInt32)height format:ASVL_PAF_RGB24_B8G8R8];
+    MUInt32 dstPitch = pOffscreen->pi32Pitch[0];
+    MUInt8* dstLine = pOffscreen->ppu8Plane[0];
+    GLubyte* sourceLine = imageBuffer;
+    for (int j=0; j<height; j++) {
+        for (int i=0; i<width; i++) {
+            dstLine[i*3] = sourceLine[i*bytesPerPixel+2];
+            dstLine[i*3+1] = sourceLine[i*bytesPerPixel+1];
+            dstLine[i*3+2] = sourceLine[i*bytesPerPixel];
+        }
+        
+        sourceLine += pitch;
+        dstLine += dstPitch;
+    }
+
+    CFRelease(dataProvider);
+    
+    return pOffscreen;
+}
 @end
