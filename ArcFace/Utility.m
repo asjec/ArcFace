@@ -11,24 +11,6 @@
 
 @implementation Utility
 
-+ (void)CalcFitOutSize:(CGFloat)nOldW oldH:(CGFloat)nOldH newW:(CGFloat*)nW newH:(CGFloat*)nH
-{
-    if (!nOldW || !nOldH || !nW || !nH || !(*nW) || !(*nH))
-    {
-        *nW = 0;
-        *nH = 0;
-        return;
-    }
-    
-    if(nOldW * (*nH) > nOldH * (*nW))
-        *nW = round((nOldW * (*nH))/nOldH);
-    else
-        *nH = round((nOldH * (*nW))/nOldW);
-    
-    *nW = MAX(1, *nW);
-    *nH = MAX(1, *nH);
-}
-
 + (LPASVLOFFSCREEN) createOffscreen:(MInt32) width height:( MInt32) height format:( MUInt32) format
 {
     

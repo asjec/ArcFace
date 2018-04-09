@@ -13,8 +13,6 @@
 
 @interface Utility : NSObject
 
-+ (void)CalcFitOutSize:(CGFloat)nOldW oldH:(CGFloat)nOldH newW:(CGFloat*)nW newH:(CGFloat*)nH;
-
 + (LPASVLOFFSCREEN) createOffscreen:(MInt32) width height:( MInt32) height format:( MUInt32) format;
 + (void) freeOffscreen:(LPASVLOFFSCREEN) pOffscreen;
 + (LPASVLOFFSCREEN) createOffscreenwithUImage:(UIImage*)image;

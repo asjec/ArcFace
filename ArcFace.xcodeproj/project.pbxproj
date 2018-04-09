@@ -11,6 +11,7 @@
 		7732EB65202C50F800652248 /* FSDKFR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7732EB63202C50F800652248 /* FSDKFR.xcdatamodeld */; };
 		776541B41F442A0600147886 /* arcsoft_fsdk_base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */; };
 		776541B51F442A0600147886 /* arcsoft_fsdk_base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7769BF9A207B43C800380C55 /* GLKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7769BF99207B43C800380C55 /* GLKitView.m */; };
 		77CFACA81F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CFAC991F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework */; };
 		77CFACA91F42E14A00DB8EB7 /* arcsoft_fsdk_face_detection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CFAC9B1F42E14A00DB8EB7 /* arcsoft_fsdk_face_detection.framework */; };
 		77CFACAA1F42E14A00DB8EB7 /* arcsoft_fsdk_face_recognition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CFAC9D1F42E14A00DB8EB7 /* arcsoft_fsdk_face_recognition.framework */; };
@@ -28,8 +29,6 @@
 		77D55EC41F2ECF2F00605942 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D55EC31F2ECF2F00605942 /* Assets.xcassets */; };
 		77D55EC71F2ECF2F00605942 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D55EC51F2ECF2F00605942 /* LaunchScreen.storyboard */; };
 		77D55EF61F2EFBF200605942 /* AFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55EF51F2EFBF200605942 /* AFCameraController.m */; };
-		77D55F001F2F057B00605942 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55EFC1F2F057B00605942 /* GLProgram.m */; };
-		77D55F011F2F057B00605942 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77D55EFF1F2F057B00605942 /* GLView.mm */; };
 		77D55F071F2F167300605942 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F061F2F167300605942 /* Utility.m */; };
 		77D55F0A1F30125000605942 /* AFVideoProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F091F30125000605942 /* AFVideoProcessor.mm */; };
 		77D55F1C1F30190700605942 /* AFRManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D55F0E1F30190600605942 /* AFRManager.m */; };
@@ -62,6 +61,8 @@
 		7732EB46202C46A400652248 /* AFRCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRCDManager.m; sourceTree = "<group>"; };
 		7732EB64202C50F800652248 /* FSDKFR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSDKFR.xcdatamodel; sourceTree = "<group>"; };
 		776541B31F4429BE00147886 /* arcsoft_fsdk_base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_base.framework; sourceTree = "<group>"; };
+		7769BF98207B43C800380C55 /* GLKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLKitView.h; sourceTree = "<group>"; };
+		7769BF99207B43C800380C55 /* GLKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLKitView.m; sourceTree = "<group>"; };
 		77CFAC991F42E14A00DB8EB7 /* arcsoft_fsdk_age_estimation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_age_estimation.framework; sourceTree = "<group>"; };
 		77CFAC9B1F42E14A00DB8EB7 /* arcsoft_fsdk_face_detection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_face_detection.framework; sourceTree = "<group>"; };
 		77CFAC9D1F42E14A00DB8EB7 /* arcsoft_fsdk_face_recognition.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = arcsoft_fsdk_face_recognition.framework; sourceTree = "<group>"; };
@@ -83,11 +84,6 @@
 		77D55EC81F2ECF2F00605942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D55EF41F2EFBF200605942 /* AFCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCameraController.h; sourceTree = "<group>"; };
 		77D55EF51F2EFBF200605942 /* AFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFCameraController.m; sourceTree = "<group>"; };
-		77D55EFB1F2F057B00605942 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLProgram.h; path = render/GLProgram.h; sourceTree = "<group>"; };
-		77D55EFC1F2F057B00605942 /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLProgram.m; path = render/GLProgram.m; sourceTree = "<group>"; };
-		77D55EFD1F2F057B00605942 /* GLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLShader.h; path = render/GLShader.h; sourceTree = "<group>"; };
-		77D55EFE1F2F057B00605942 /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLView.h; path = render/GLView.h; sourceTree = "<group>"; };
-		77D55EFF1F2F057B00605942 /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLView.mm; path = render/GLView.mm; sourceTree = "<group>"; };
 		77D55F051F2F167300605942 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		77D55F061F2F167300605942 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		77D55F081F30125000605942 /* AFVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFVideoProcessor.h; sourceTree = "<group>"; };
@@ -239,13 +235,14 @@
 				77D55F091F30125000605942 /* AFVideoProcessor.mm */,
 				77DBD90D20285310007088E7 /* StaticImageViewController.h */,
 				77DBD90E20285310007088E7 /* StaticImageViewController.mm */,
+				7769BF98207B43C800380C55 /* GLKitView.h */,
+				7769BF99207B43C800380C55 /* GLKitView.m */,
 				77D55F051F2F167300605942 /* Utility.h */,
 				77D55F061F2F167300605942 /* Utility.m */,
 				77D55EBD1F2ECF2F00605942 /* Main.storyboard */,
 				77D55EC51F2ECF2F00605942 /* LaunchScreen.storyboard */,
 				77D55EC31F2ECF2F00605942 /* Assets.xcassets */,
 				77D55EC81F2ECF2F00605942 /* Info.plist */,
-				77D55EFA1F2F052200605942 /* render */,
 				77D55EB41F2ECF2E00605942 /* Supporting Files */,
 			);
 			path = ArcFace;
@@ -265,18 +262,6 @@
 				77DBD91020298A1D007088E7 /* Photos.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		77D55EFA1F2F052200605942 /* render */ = {
-			isa = PBXGroup;
-			children = (
-				77D55EFB1F2F057B00605942 /* GLProgram.h */,
-				77D55EFC1F2F057B00605942 /* GLProgram.m */,
-				77D55EFD1F2F057B00605942 /* GLShader.h */,
-				77D55EFE1F2F057B00605942 /* GLView.h */,
-				77D55EFF1F2F057B00605942 /* GLView.mm */,
-			);
-			name = render;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,7 +337,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77D55F011F2F057B00605942 /* GLView.mm in Sources */,
 				77D55EF61F2EFBF200605942 /* AFCameraController.m in Sources */,
 				77D55EBC1F2ECF2E00605942 /* ViewController.m in Sources */,
 				77D55F1D1F30190700605942 /* AFRPerson.m in Sources */,
@@ -361,9 +345,9 @@
 				77D55F071F2F167300605942 /* Utility.m in Sources */,
 				77DBD90F20285310007088E7 /* StaticImageViewController.mm in Sources */,
 				77D55F0A1F30125000605942 /* AFVideoProcessor.mm in Sources */,
+				7769BF9A207B43C800380C55 /* GLKitView.m in Sources */,
 				77D55EB91F2ECF2E00605942 /* AppDelegate.m in Sources */,
 				77D55EB61F2ECF2E00605942 /* main.m in Sources */,
-				77D55F001F2F057B00605942 /* GLProgram.m in Sources */,
 				77D55F1C1F30190700605942 /* AFRManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "AFCameraController.h"
-#import "GLView.h"
+#import "GLKitView.h"
 #import "Utility.h"
 #import "asvloffscreen.h"
 #import "AFVideoProcessor.h"
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) AFVideoProcessor* videoProcessor;
 @property (nonatomic, strong) NSMutableArray* arrayAllFaceRectView;
 
-@property (weak, nonatomic) IBOutlet GLView *glView;
+@property (weak, nonatomic) IBOutlet GLKitView *glView;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UISwitch *switchDetectByFD;
 
@@ -41,23 +41,6 @@
     
     UIInterfaceOrientation uiOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     AVCaptureVideoOrientation videoOrientation = (AVCaptureVideoOrientation)uiOrientation;
-    
-    CGSize sizeTemp = CGSizeZero;
-    if(uiOrientation == UIInterfaceOrientationPortrait || uiOrientation == UIInterfaceOrientationPortraitUpsideDown)
-    {
-        sizeTemp.width = MIN(IMAGE_WIDTH, IMAGE_HEIGHT);
-        sizeTemp.height = MAX(IMAGE_WIDTH, IMAGE_HEIGHT);
-    }
-    else
-    {
-        sizeTemp.width = MAX(IMAGE_WIDTH, IMAGE_HEIGHT);
-        sizeTemp.height = MIN(IMAGE_WIDTH, IMAGE_HEIGHT);
-    }
-    CGFloat fWidth = self.view.bounds.size.width;
-    CGFloat fHeight = self.view.bounds.size.height;
-    [Utility CalcFitOutSize:sizeTemp.width oldH:sizeTemp.height newW:&fWidth newH:&fHeight];
-    self.glView.frame = CGRectMake((self.view.bounds.size.width-fWidth)/2,(self.view.bounds.size.width-fWidth)/2,fWidth,fHeight);
-    [self.glView setInputSize:sizeTemp orientation:videoOrientation];
     
     self.switchDetectByFD.on = NO;
     self.arrayAllFaceRectView = [NSMutableArray arrayWithCapacity:0];
@@ -141,21 +124,12 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
-    int bufferWidth = (int) CVPixelBufferGetWidth(cameraFrame);
-    int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);
     LPASVLOFFSCREEN pOffscreenIn = [self offscreenFromSampleBuffer:sampleBuffer];
     NSArray *arrayFaceInfo = [self.videoProcessor process:pOffscreenIn];
     
     dispatch_sync(dispatch_get_main_queue(), ^{
         
-        if (ASVL_PAF_RGB32_B8G8R8A8 == pOffscreenIn->u32PixelArrayFormat || ASVL_PAF_RGB32_R8G8B8A8 == pOffscreenIn->u32PixelArrayFormat)
-        {
-            [self.glView render:bufferWidth height:bufferHeight textureData:(GLubyte*) pOffscreenIn->ppu8Plane[0] bgra:(ASVL_PAF_RGB32_B8G8R8A8 == pOffscreenIn->u32PixelArrayFormat) textureName:@"BACKGROUND_TEXTURE"];
-        }
-        else if (ASVL_PAF_NV12 == pOffscreenIn->u32PixelArrayFormat)
-        {
-            [self.glView render:bufferWidth height:bufferHeight yData:pOffscreenIn->ppu8Plane[0] uvData:pOffscreenIn->ppu8Plane[1]];
-        }
+        [self.glView renderWithCVPixelBuffer:cameraFrame orientation:0 mirror:NO];
         
         if(self.arrayAllFaceRectView.count >= arrayFaceInfo.count)
         {
